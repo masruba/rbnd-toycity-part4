@@ -37,5 +37,6 @@ module Analyzable
 		report_string << "Inventory by Name:\n"
 		names_hash = count_by_name(products) 	
 		report_string << print_hash(names_hash)
+		report_string
 	end  
 end

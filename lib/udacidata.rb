@@ -6,6 +6,7 @@ class Udacidata
 	@@file_path_to_csv = File.dirname(__FILE__) + "/../data/data.csv"		
 	create_finder_methods("brand", "name") 	
 
+	# Returns whether the product exists in the database
   def self.object_data_exists!(id)
 		CSV.foreach(@@file_path_to_csv, headers: true) do |row|
 			if row["id"] == id
@@ -52,14 +53,15 @@ class Udacidata
  		n == 1? products.last : products.last(n)
  	end
 
-
+ 	# Find a product 
  	def self.find(id)
 		products = all 
-		item = products.find{|product| product.id == id}
-		raise ProductNotFoundError if item == nil
-		item
+		product = products.find{|product| product.id == id}
+		raise ProductNotFoundError if product == nil
+		product
  	end
 
+ 	# Write to csv file given a products array
  	def self.write_csv(products)
 		CSV.open(@@file_path_to_csv, "w") do |csv|
       csv << ["id", "brand", "product", "price"]
@@ -69,6 +71,7 @@ class Udacidata
   	end    
  	end
 
+ 	# Fundtion to print product array
  	def self.print_products(products)
 		products.each do |product|
 			print product.id.to_s, " "
