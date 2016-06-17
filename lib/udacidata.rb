@@ -55,7 +55,9 @@ class Udacidata
 
  	def self.find(id)
 		products = all 
-		products.find{|product| product.id == id}
+		item = products.find{|product| product.id == id}
+		raise ProductNotFoundError if item == nil
+		item
  	end
 
  	def self.write_csv(products)
